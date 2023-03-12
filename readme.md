@@ -1,6 +1,6 @@
 # untitled battery thing!
 
-sigh.
+by bucketfish and fern.
 
 ## setup and stuff
 
