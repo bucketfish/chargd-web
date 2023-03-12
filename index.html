@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>untitled battery site</title>
+</head>
+
+<body>
+	<button type="submit">Refresh</button>
+  <div id="show_stuff"></div>
+
+
+	<script>
+		document.querySelector('button')
+			.addEventListener('click', (e) => {
+        const show_div = document.getElementById("show_stuff");
+        show_div.innerHTML = "";
+
+				e.preventDefault(); // no idea what this does i copied it from somewhere
+
+				fetch('/battery')
+					.then((res) => {
+						return res.json();
+					})
+					.then((data) => {
+            console.log(data);
+
+            for (const username in data) {
+              const personDiv = document.createElement("div");
+
+              var text = ""
+
+              const plugin_text = data[username]["is_plugin"] ? "in" : "out";
+
+
+              text = `${data[username]["timestamp"]}: ${username} plugged ${plugin_text} their device! it's at ${data[username]["battery"]}%.`
+
+
+              const newContent = document.createTextNode(text);
+              personDiv.appendChild(newContent);
+
+              show_div.appendChild(personDiv);
+
+            }
+          })
+			});
+	</script>
+</body>
+
+</html>
