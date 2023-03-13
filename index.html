@@ -40,6 +40,9 @@
 			padding: 16px;
 			border-bottom: 2px solid var(--ctp-macchiato-surface0);
 		}
+		.feed_timestamp {
+			font-size: 1em;
+		}
 		.feed_username {
 			display: inline;
 			font-size: 1.1em;
@@ -58,9 +61,11 @@
 			color: var(--ctp-macchiato-subtext0);
 			background-color: rgba(0,0,0,0);
 			border: none;
+			font-size: 1em;
+
 		}
-		::placeholder { color: var(--ctp-macchiato-subtext0); opacity: 1; } /* Chrome, Firefox, Opera, Safari 10.1+ (opacity for firefox)*/ 
-		::-ms-input-placeholder { color: var(--ctp-macchiato-subtext0); } /* Edge */ 
+		::placeholder { color: var(--ctp-macchiato-subtext0); opacity: 1; } /* Chrome, Firefox, Opera, Safari 10.1+ (opacity for firefox)*/
+		::-ms-input-placeholder { color: var(--ctp-macchiato-subtext0); } /* Edge */
 		:-ms-input-placeholder { color: var(--ctp-macchiato-subtext0); } /* IE 10-11 (gross) */
 	</style>
 </head>
@@ -70,12 +75,15 @@
 		<div class="feed">
 			<button type="submit">Refresh</button>
 			<div id="show_stuff"></div>
-			<div class="feed_item">
+
+			<!-- <div class="feed_item">
+				<p class="feed_timestamp">5 minutes ago</p>
 				<h1 class="feed_username">Fern</h1>
 				<h2 class="feed_actiontext">plugged their phone in.</h2>
 				<h1 class="feed_percentage">83%</h1>
 				<input type="text" class="feed_captionbox" placeholder="Add a caption..."></input>
-			</div>
+			</div> -->
+
 		</div>
 	</div>
 
@@ -99,20 +107,27 @@
 
 							var text = ""
 
-							const plugin_text = data[username]["is_plugin"] ? "in" : "out";
+							const plugin_text = data[username]["is_plugin"] == "true" ? "in" : "out";
 
+							const timestamp = data[username]["timestamp"]
 
-							text = `${data[username]["timestamp"]}: ${username} plugged ${plugin_text} their device! it's at ${data[username]["battery"]}%.`
+							text = `<div class="feed_item">
+								<p class="feed_timestamp">${timestamp}</p>
+								<h1 class="feed_username">${username}</h1>
+								<h2 class="feed_actiontext">plugged their phone ${plugin_text}.</h2>
+								<h1 class="feed_percentage">${data[username]["battery"]}%</h1>
+								<input type="text" class="feed_captionbox" placeholder="Add a caption..."></input>
+							</div>
+							`
 
-
-							const newContent = document.createTextNode(text);
-							personDiv.appendChild(newContent);
+							personDiv.innerHTML = text;
 
 							show_div.appendChild(personDiv);
 
 						}
 					})
 			});
+
 	</script>
 </body>
 

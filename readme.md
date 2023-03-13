@@ -19,6 +19,12 @@ to post data, run a post method to `http://localhost:3000/battery` in json forma
 }
 ```
 
-is_plugin determines whether the action is a plug in or plug out action. battery is battery percentage. username is whatever. timestamp is in iso8601 format, but it doesn't have anything to enforce that yet.
+is_plugin determines whether the action is a plug in or plug out action. battery is battery percentage. username is whatever. timestamp is in unix timestamp, but it doesn't have anything to enforce that yet.
+
+quick curl command to send a post to localhost:
+
+```
+curl -d '{"username": "Test User", "battery": "100", "is_plugin": "true", "timestamp": '"$(date +%s)"' }' -H 'Content-Type: application/json' -X POST http://localhost:3000/battery
+```
 
 yay!
