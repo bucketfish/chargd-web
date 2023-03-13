@@ -18,8 +18,6 @@ app.post('/', (req, res) => {
 	res.sendFile(__dirname + '/index.html');
 });
 
-
-
 // request to update battery status
 app.post('/battery', (req, res) => {
 	const { username, battery, is_plugin, timestamp } = req.body;
