@@ -9,39 +9,38 @@ app.use(express.json());
 var data = {}
 
 
-
 // website landing page (?????)
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/index.html');
 });
 // i don't know why i need both get and post but like it breaks if you don't soooo
 app.post('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/index.html');
 });
 
 
 
 // request to update battery status
 app.post('/battery', (req, res) => {
-  const { username, battery, is_plugin, timestamp } = req.body;
+	const { username, battery, is_plugin, timestamp } = req.body;
 
-  // update data entry
-  data[username] = {
-    "battery": battery,
-    "is_plugin": is_plugin,
-    "timestamp": timestamp,
-  }
-  res.send( data );
+	// update data entry
+	data[username] = {
+		"battery": battery,
+		"is_plugin": is_plugin,
+		"timestamp": timestamp,
+	}
+	res.send( data );
 });
 
 
 // request to get battery status
 app.get('/battery', (req, res) => {
-  res.send( data );
+	res.send( data );
 });
 
 
 
 app.listen(3000, () => {
-  console.log('Server is running on port 3000!');
+	console.log('Server is running on port 3000!');
 });
