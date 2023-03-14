@@ -27,4 +27,9 @@ quick curl command to send a post to localhost:
 curl -d '{"username": "Test User", "battery": "100", "is_plugin": "true", "timestamp": '"$(date +%s)"' }' -H 'Content-Type: application/json' -X POST http://localhost:3000/battery
 ```
 
+quick curl command to send a caption to localhost:
+```
+curl -d '{"username": "Test User", "caption": "test caption!" }' -H 'Content-Type: application/json' -X POST http://localhost:3000/caption
+```
+
 yay!

@@ -27,6 +27,7 @@ app.post('/battery', (req, res) => {
 		"battery": battery,
 		"is_plugin": is_plugin,
 		"timestamp": timestamp,
+		"caption": ""
 	}
 	res.send( data );
 });
@@ -36,6 +37,18 @@ app.post('/battery', (req, res) => {
 app.get('/battery', (req, res) => {
 	res.send( data );
 });
+
+
+app.post('/caption', (req, res) => {
+	const { username, caption } = req.body;
+
+	if (data[username]) {
+		data[username]["caption"] = caption
+	}
+
+	res.send(data);
+
+})
 
 
 
