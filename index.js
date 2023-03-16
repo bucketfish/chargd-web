@@ -43,12 +43,14 @@ app.post('/battery', (req, res) => {
 		}
 	}
 
+	res.setHeader("Access-Control-Allow-Origin", "https://app.chargd.social")
 	res.send( data );
 });
 
 
 // request to get battery status
 app.get('/battery', (req, res) => {
+	res.setHeader("Access-Control-Allow-Origin", "https://app.chargd.social")
 	res.send( data );
 });
 
@@ -60,6 +62,7 @@ app.post('/caption', (req, res) => {
 		data[username]["caption"] = caption
 	}
 
+	res.setHeader("Access-Control-Allow-Origin", "https://app.chargd.social")
 	res.send(data);
 
 })
