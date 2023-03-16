@@ -9,19 +9,11 @@ app.use(express.json());
 var data = {}
 
 
-// // website landing page (?????)
-// app.get('/', (req, res) => {
-// 	res.sendFile(__dirname + '/public/index.html');
-// });
-// // i don't know why i need both get and post but like it breaks if you don't soooo
-// app.post('/', (req, res) => {
-// 	res.sendFile(__dirname + '/public/index.html');
-// });
-
 // request to update battery status
 app.post('/battery', (req, res) => {
-	const { username, battery, is_plugin, timestamp } = req.body;
+	var { username, battery, is_plugin, timestamp } = req.body;
 
+	battery = Math.max(parseInt(battery), 0).toString()
 
 	// i'm sure there's some way to make this code neater lol xd
 	if (data[username]) {
