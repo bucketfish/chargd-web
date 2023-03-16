@@ -22,13 +22,27 @@ app.post('/', (req, res) => {
 app.post('/battery', (req, res) => {
 	const { username, battery, is_plugin, timestamp } = req.body;
 
-	// update data entry
-	data[username] = {
-		"battery": battery,
-		"is_plugin": is_plugin,
-		"timestamp": timestamp,
-		"caption": ""
+
+	// i'm sure there's some way to make this code neater lol xd
+	if (data[username]) {
+		if (data[username]["timestamp"] < timestamp) {
+			data[username] = {
+				"battery": battery,
+				"is_plugin": is_plugin,
+				"timestamp": timestamp,
+				"caption": ""
+			}
+		}
 	}
+	else {
+		data[username] = {
+			"battery": battery,
+			"is_plugin": is_plugin,
+			"timestamp": timestamp,
+			"caption": ""
+		}
+	}
+
 	res.send( data );
 });
 
