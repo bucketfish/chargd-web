@@ -9,14 +9,14 @@ app.use(express.json());
 var data = {}
 
 
-// website landing page (?????)
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html');
-});
-// i don't know why i need both get and post but like it breaks if you don't soooo
-app.post('/', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html');
-});
+// // website landing page (?????)
+// app.get('/', (req, res) => {
+// 	res.sendFile(__dirname + '/public/index.html');
+// });
+// // i don't know why i need both get and post but like it breaks if you don't soooo
+// app.post('/', (req, res) => {
+// 	res.sendFile(__dirname + '/public/index.html');
+// });
 
 // request to update battery status
 app.post('/battery', (req, res) => {
