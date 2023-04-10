@@ -1,0 +1,160 @@
+openapi: '3.0.2'
+info:
+  title: Chargd
+  version: '1.0'
+servers:
+  - url: https://api.chargd.social/v1
+paths:
+  "/ping":
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+              text/plain:
+                schema:
+                  $ref: '#/components/schemas/pong'
+  "/user":
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Add a user to the database with the specified username and email address. Returns the created user's ID if successful
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSkeleton'
+        description: User creation information
+        required: true
+      responses:
+        "200":
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCompelete'
+        "400":
+          description: Invalid username or email address
+        "5XX": 
+          description: Server error. Please try again later or contact an administrator.
+  "/user/{userID}":
+    get:
+      tags:
+        - user
+      summary: Get user
+      description: Get information for user at specified ID
+      operationId: getUser
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCompelete'
+        "400":
+          description: Invalid user ID. Refer to the documentation.
+        "404":
+          description: User not found.
+        "5XX": 
+          description: Server error. Please try again later or contact an administrator.
+    put:
+      tags:
+        - user
+      summary: Edit user
+      description: Edit user by ID, changing username and/or email address
+      operationId: editUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSkeleton'
+        description: User information to be updated
+        required: true
+      responses:
+        "200":
+          description: User edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCompelete'
+        "400":
+          description: Invalid username or email address.
+        "5XX":
+          description: Server error. Please try again later or contact an administrator.
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: Delete user by ID
+      operationId: deleteUser
+      responses:
+        "200":
+          description: User deleted successfully
+        "400":
+          description: Invalid user ID. Refer to the documentation.
+        "404":
+          description: User not found.
+        "5XX": 
+          description: Server error. Please try again later or contact an administrator.
+  "/post":
+    post:
+      tags:
+        - post
+      summary: Create a post
+      description: Creates a new post with the specified timestamp, battery level and action enum (0 for unplug, 1 for plug in)
+      operationId: createPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostSkeleton'
+        description: Details of the post
+        required: true
+      responses:
+        "200":
+          description: Post created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostSkeleton'
+        "400":
+          description: Invalid timestamp, battery level or action. Refer to the documentation.
+        "5XX": 
+          description: Server error. Please try again later or contact an administrator.
+  "/post/{postID}":
+    get:
+      tags:
+        - post
+      summary: Get post by ID
+      description: Get data of the post at specified ID
+      operationId: getPostByID
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostComplete'
+        "400":
+          description: Invalid post ID. Refer to the documentation.
+        "404":
+          description: Post not found.
+        "5XX": 
+          description: Server error. Please try again later or contact an administrator.
+    delete:
+      tags:
+        - post
+      summary: Delete post
+      description: Delete post by ID
+      operationId: deletePost
+      responses:
+        "200":
+          description: Post deleted successfully
+        "400":
+          description: Invalid user ID. Refer to the documentation.
+        "404":
+          description: User not found.
+        "5XX": 
+          description: Server error. Please try again later or contact an administrator.
