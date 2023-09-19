@@ -1,0 +1,12 @@
+const ~~[OPERATION_ID]~~ = (request, response) => {
+    const { ~~[PROPERTY_LIST]~~ } = request.body
+    ~~[EXTRA_LINES]~~
+
+    pool.query('~~[QUERY]~~', [~~[QUERY_PARAMS]~~], (error, results) => {
+        if (error) {
+            throw error
+        }
+        ~~[RESPONSE_MANIPULATION]~~
+        ~~[RESPONSE_SEND]~~
+    })
+}

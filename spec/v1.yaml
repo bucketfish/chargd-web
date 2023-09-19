@@ -4,6 +4,16 @@ info:
   version: '1.0'
 servers:
   - url: https://api.chargd.social/v1
+
+components:
+  securitySchemes:
+    name:
+      type: http
+      scheme: basic
+  schemas:
+    Pong:
+      type: 
+
 paths:
   "/ping":
     get:
@@ -158,3 +168,58 @@ paths:
           description: User not found.
         "5XX": 
           description: Server error. Please try again later or contact an administrator.
+  "/post/{postID}/caption":
+    post:
+      tags:
+        - post
+        - caption
+      summary: Add caption to post
+      description: Add a given caption to the existing post at the given post ID
+      operationId: addCaption
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Caption'
+        required: true
+      responses:
+        "200":
+          description: Caption added successfully
+        "400":
+          description: Invalid post ID and/or caption. Refer to the documentation for correct format.
+    get:
+      tags:
+        - post
+        - caption
+      summary: Get caption
+      description: Get the caption associated with the post at the given post ID
+      operationId: getCaption
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Caption'
+        "400":
+          description: Invalid post ID. Refer to the documentation for correct format.
+        "404":
+          description: Post not found or caption doesn't exist.
+    put:
+      tags:
+        - post
+        - caption
+      summary: Edit caption
+      description: Edit the caption associated with the post at the given post ID.
+      operationId: editCaption
+      responses:
+        "200":
+          description: Caption edited successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Caption'
+        "400":
+          description: Invalid post ID and/or caption. Refer to the documentation for correct format.
+        "404":
+          description: Post not found.
